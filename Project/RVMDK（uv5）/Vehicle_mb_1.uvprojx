@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>串口通信板</TargetName>
+      <TargetName>采矿车通信板</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
