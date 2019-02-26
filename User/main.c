@@ -10,71 +10,55 @@
   *
   ******************************************************************************
   */
-
 #include "stm32f4xx.h"
 #include "SysTick.h"
-#include "Modbus_svr.h"
-#include "usart_cpt.h"
-#include "usart_van.h"
-#include "usart_spd.h"
-#include "usart_alt.h"
-#include "usart_dpt.h"
 #include "gpio.h"
+#include "bsp_innerflash.h"
 
-extern short wReg[];
-extern u8 bChanged;
+#include "Modbus_svr.h"
+#include "usart_com1.h"
+#include "usart_spd1.h"
+#include "usart_spd2.h"
+#include "usart_spd3.h"
+#include "usart_dam.h"
 
-extern uint8_t cpt_frame[];
-
-/**
-  * @brief  主函数
-  * @param  无
-  * @retval 无
-  */
 int main(void)
 {
+	SysTick_Init(); //tick定时器初始
+	GPIO_Config();  //GPIO初始化
 
-	SysTick_Init();
-	GPIO_Config();
+	Modbus_init(); //上位机通信初始化
 
-	Modbus_init();
-	CPT_Init();
-	VAN_Init();
-	SPD_Init();
-	DPT_Init();
-	ALT_Init();
+	SLV1_init();
+	SLV2_init();
+	SLV3_init();
+	SLV4_init();
+	SLV5_init();
 
 	SetTimer(0, 500);
 	SetTimer(1, 1000);
-	SetTimer(2, 200);
 
-	IWDG_Configuration();
+	IWDG_Configuration(); //看门狗初始
 
 	while (1)
 	{
-		Modbus_task();
-		CPT_Task();
-		VAN_Task();
-		SPD_Task();
-		DPT_Task();
-		ALT_Task();
+		Modbus_task(); //通信出来进程
+		SLV1_task();
+		SLV2_task();
+		SLV3_task();
+		SLV4_task();
+		SLV5_task();
 
 		if (GetTimer(0))
 		{
-			IWDG_Feed();
+			IWDG_Feed(); //看门狗复位
 			LOGGLE_LED2;
 		}
 
-		if (GetTimer(2) && bChanged == 1)
-			VAN_TransData();
-
 		if (GetTimer(1))
 		{
-			CPT_TxCmd();
-			VAN_TxCmd();
-			SPD_TxCmd();
-			DPT_TxCmd();
-			ALT_TxCmd();
+			ModbusSvr_save_para(&mblock1);
+			//ModbusSvr_save_para(&Blk_SLV1);
 		}
 	}
 }

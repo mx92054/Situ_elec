@@ -39,4 +39,9 @@
 ..\..\output\systick.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h
 ..\..\output\systick.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 ..\..\output\systick.o: ..\..\User\Modbus_svr.h
-..\..\output\systick.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\systick.o: ..\..\User\Mbsvr_comm.h
+..\..\output\systick.o: ..\..\User\usart_com1.h
+..\..\output\systick.o: ..\..\User\usart_spd1.h
+..\..\output\systick.o: ..\..\User\usart_spd2.h
+..\..\output\systick.o: ..\..\User\usart_spd3.h
+..\..\output\systick.o: ..\..\User\usart_dam.h

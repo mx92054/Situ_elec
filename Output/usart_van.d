@@ -2,7 +2,7 @@
 ..\..\output\usart_van.o: ..\..\User\usart_van.h
 ..\..\output\usart_van.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\usart_van.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\usart_van.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\usart_van.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\usart_van.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\usart_van.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\usart_van.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h
@@ -39,4 +39,5 @@
 ..\..\output\usart_van.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h
 ..\..\output\usart_van.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 ..\..\output\usart_van.o: ..\..\User\Modbus_svr.h
-..\..\output\usart_van.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\usart_van.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\usart_van.o: ..\..\User\SysTick.h

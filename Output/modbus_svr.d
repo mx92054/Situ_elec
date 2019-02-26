@@ -39,4 +39,5 @@
 ..\..\output\modbus_svr.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h
 ..\..\output\modbus_svr.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h
 ..\..\output\modbus_svr.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
+..\..\output\modbus_svr.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\modbus_svr.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
