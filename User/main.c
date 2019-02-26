@@ -18,7 +18,7 @@
 #include "Modbus_svr.h"
 #include "usart_com1.h"
 #include "usart_com2.h"
-#include "usart_spd2.h"
+#include "usart_com3.h"
 #include "usart_spd3.h"
 #include "usart_dam.h"
 

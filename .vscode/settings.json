@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stm32f4xx.h": "c",
-        "usart_spd3.h": "c"
+        "usart_spd3.h": "c",
+        "usart_com2.h": "c"
     }
 }

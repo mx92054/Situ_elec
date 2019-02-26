@@ -13,7 +13,7 @@ u8 MOT_bRecv;
 u8 MOT_frame_len = 85;
 u8 MOT_bFirst = 1;
 u32 ulMOTTick = 0;
-int bHaveWr = 0;
+int bNoSend[5] = {1, 1, 1, 1, 1};
 
 //-------------------------------------------------------------------------------
 //	@brief	串口初始化
@@ -123,7 +123,7 @@ void MOT_TxCmd(void)
 
     for (i = 0; i < 5; i++)
     {
-        if (*ptrW != *ptrR)
+        if (*ptrW != *ptrR && bNoSend[i])
         {
             bWrite = i;
             break;
@@ -132,7 +132,7 @@ void MOT_TxCmd(void)
         ptrR++;
     }
 
-    if (bWrite == -1 || bHaveWr)
+    if (bWrite == -1)
     {
         Usart_SendBytes(USART_MOT, MOT_frame, 8);
         MOT_frame_len = 2 * MOT_REG_LEN + 5;
@@ -147,8 +147,8 @@ void MOT_TxCmd(void)
     MOT_WrFrame[7] = (uCRC & 0xFF00) >> 8; //CRC high
 
     MOT_frame_len = 8;
+    bNoSend[bWrite] = 0;
     Usart_SendBytes(USART_MOT, MOT_WrFrame, 8);
-    bHaveWr = 1;
 }
 
 /*
@@ -170,9 +170,9 @@ void MOT_Task(void)
         return;
 
     tick = GetCurTick();
-    if (MOT_buffer[1] == 0x03 || MOT_buffer[1] == 0x06)
+    if (MOT_buffer[1] == 0x03 || MOT_buffer[1] == 0x06) //读命令成功返回
     {
-        if (MOT_buffer[1] == 0x03 && MOT_buffer[2] == 2*MOT_REG_LEN)
+        if (MOT_buffer[1] == 0x03 && MOT_buffer[2] == 2 * MOT_REG_LEN)
         {
             ptr = MOT_buffer + 3;
             pReg = mblock1.ptrRegs + MOT_SAVE_ADR;
@@ -182,6 +182,12 @@ void MOT_Task(void)
                 *pReg |= *ptr++;
                 pReg++;
             }
+            for (i = 0; i < 5; i++)
+                bNoSend[i] = 1;
+        }
+
+        if (MOT_buffer[1] == 0x06) //写命令成功返回
+        {
         }
 
         mblock1.ptrRegs[MOT_COM_TIM] = tick - ulMOTTick;

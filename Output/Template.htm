@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\..\Output\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\..\Output\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Feb 26 17:15:34 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Feb 26 22:40:50 2019
 <BR><P>
 <H3>Maximum Stack Usage =        356 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -115,7 +115,7 @@ Function Pointers
  <LI><a href="#[36]">TIM8_UP_TIM13_IRQHandler</a> from startup_stm32f429_439xx.o(.text) referenced from startup_stm32f429_439xx.o(RESET)
  <LI><a href="#[3e]">UART4_IRQHandler</a> from usart_dam.o(i.UART4_IRQHandler) referenced from startup_stm32f429_439xx.o(RESET)
  <LI><a href="#[3f]">UART5_IRQHandler</a> from startup_stm32f429_439xx.o(.text) referenced from startup_stm32f429_439xx.o(RESET)
- <LI><a href="#[5c]">UART7_IRQHandler</a> from usart_spd2.o(i.UART7_IRQHandler) referenced from startup_stm32f429_439xx.o(RESET)
+ <LI><a href="#[5c]">UART7_IRQHandler</a> from usart_com3.o(i.UART7_IRQHandler) referenced from startup_stm32f429_439xx.o(RESET)
  <LI><a href="#[5d]">UART8_IRQHandler</a> from startup_stm32f429_439xx.o(.text) referenced from startup_stm32f429_439xx.o(RESET)
  <LI><a href="#[2f]">USART1_IRQHandler</a> from modbus_svr.o(i.USART1_IRQHandler) referenced from startup_stm32f429_439xx.o(RESET)
  <LI><a href="#[30]">USART2_IRQHandler</a> from usart_spd3.o(i.USART2_IRQHandler) referenced from startup_stm32f429_439xx.o(RESET)
@@ -620,7 +620,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8b]"></a>MOT_Task</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, usart_com2.o(i.MOT_Task))
+<P><STRONG><a name="[8b]"></a>MOT_Task</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, usart_com2.o(i.MOT_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = MOT_Task
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetCurTick
@@ -628,8 +628,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8c]"></a>MOT_TxCmd</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, usart_com2.o(i.MOT_TxCmd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = MOT_TxCmd &rArr; Usart_SendBytes &rArr; Usart_SendByte
+<P><STRONG><a name="[8c]"></a>MOT_TxCmd</STRONG> (Thumb, 176 bytes, Stack size 32 bytes, usart_com2.o(i.MOT_TxCmd))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = MOT_TxCmd &rArr; Usart_SendBytes &rArr; Usart_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Usart_SendBytes
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16
@@ -676,7 +676,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART4_IRQHandler
 <LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART7_IRQHandler
 <LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
@@ -854,10 +853,12 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429_439xx.o(RESET)
 </UL>
-<P><STRONG><a name="[5c]"></a>UART7_IRQHandler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, usart_spd2.o(i.UART7_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = UART7_IRQHandler &rArr; ModbusSvr_isr &rArr; USART_GetITStatus
+<P><STRONG><a name="[5c]"></a>UART7_IRQHandler</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, usart_com3.o(i.UART7_IRQHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = UART7_IRQHandler &rArr; USART_GetITStatus
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusSvr_isr
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429_439xx.o(RESET)
 </UL>
@@ -910,7 +911,8 @@ Global Symbols
 <P><STRONG><a name="[98]"></a>USART_GetITStatus</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, stm32f4xx_usart.o(i.USART_GetITStatus))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = USART_GetITStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART7_IRQHandler
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART6_IRQHandler
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusSvr_isr
 </UL>
@@ -918,7 +920,8 @@ Global Symbols
 <P><STRONG><a name="[84]"></a>USART_ITConfig</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, stm32f4xx_usart.o(i.USART_ITConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = USART_ITConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART7_IRQHandler
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MOT_Config
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SLV5_Config
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART6_IRQHandler
@@ -939,7 +942,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[99]"></a>USART_ReceiveData</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f4xx_usart.o(i.USART_ReceiveData))
-<BR><BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART7_IRQHandler
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART6_IRQHandler
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusSvr_isr
 </UL>

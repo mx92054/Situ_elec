@@ -36,7 +36,7 @@
 #define MOT_COM_TIM 163  //电机板通信成功间隔寄存器地址
 #define MOT_COM_SUCS 173 //电机板通信成功次数寄存器地址
 #define MOT_COM_FAIL 183 //电机板通信失败次数寄存器地址
-#define MOT_SW_ADR 100   //电机板开关控制地址
+#define MOT_SW_ADR 140   //电机板开关控制地址
 
 //------------------------------------------------
 void MOT_init(void);

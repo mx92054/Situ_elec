@@ -1,7 +1,7 @@
 ..\..\output\main.o: ..\..\User\main.c
 ..\..\output\main.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\main.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\main.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\main.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h
@@ -44,6 +44,6 @@
 ..\..\output\main.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\main.o: ..\..\User\usart_com1.h
 ..\..\output\main.o: ..\..\User\usart_com2.h
-..\..\output\main.o: ..\..\User\usart_spd2.h
+..\..\output\main.o: ..\..\User\usart_com3.h
 ..\..\output\main.o: ..\..\User\usart_spd3.h
 ..\..\output\main.o: ..\..\User\usart_dam.h
