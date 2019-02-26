@@ -41,7 +41,4 @@
 ..\..\output\systick.o: ..\..\User\Modbus_svr.h
 ..\..\output\systick.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\systick.o: ..\..\User\usart_com1.h
-..\..\output\systick.o: ..\..\User\usart_spd1.h
-..\..\output\systick.o: ..\..\User\usart_spd2.h
-..\..\output\systick.o: ..\..\User\usart_spd3.h
 ..\..\output\systick.o: ..\..\User\usart_dam.h

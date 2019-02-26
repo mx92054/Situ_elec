@@ -509,6 +509,20 @@ void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch)
 }
 
 //-------------------------------------------------------------------------------
+//	@brief	发送指定长度字节
+//	@param	pUSARTx:发送端口号
+//					ch: 待发送的字节
+//	@retval	None
+//-------------------------------------------------------------------------------
+void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t* ptr, int n)
+{
+    while(n--)
+    {
+        Usart_SendByte(pUSARTx, *ptr++);
+    }
+}
+
+//-------------------------------------------------------------------------------
 //	@brief	发送一个字符串
 //	@param	pUSARTx:发送端口号
 //					str: 待发送的字符串

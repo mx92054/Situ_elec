@@ -61,6 +61,7 @@ void ModbusSvr_NVIC_Configuration(u8 nChn);
 
 u16 CRC16(const uint8_t *nData, uint8_t wLength);
 void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch);
+void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t* ptr, int n);
 void Usart_SendString(USART_TypeDef *pUSARTx, char *str);
 void Usart_SendHalfWord(USART_TypeDef *pUSARTx, uint16_t ch);
 

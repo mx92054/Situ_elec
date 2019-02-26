@@ -43,7 +43,7 @@
 ..\..\output\main.o: ..\..\User\Modbus_svr.h
 ..\..\output\main.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\main.o: ..\..\User\usart_com1.h
-..\..\output\main.o: ..\..\User\usart_spd1.h
+..\..\output\main.o: ..\..\User\usart_com2.h
 ..\..\output\main.o: ..\..\User\usart_spd2.h
 ..\..\output\main.o: ..\..\User\usart_spd3.h
 ..\..\output\main.o: ..\..\User\usart_dam.h
