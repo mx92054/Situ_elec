@@ -2,6 +2,7 @@
 #include "Mbsvr_comm.h"
 #include "stm32f4xx_conf.h"
 #include "SysTick.h"
+#include <stdio.h>
 
 extern Modbus_block mblock1;
 

@@ -45,5 +45,4 @@
 ..\..\output\main.o: ..\..\User\usart_com1.h
 ..\..\output\main.o: ..\..\User\usart_com2.h
 ..\..\output\main.o: ..\..\User\usart_com3.h
-..\..\output\main.o: ..\..\User\usart_spd3.h
-..\..\output\main.o: ..\..\User\usart_dam.h
+..\..\output\main.o: ..\..\User\usart_com4.h

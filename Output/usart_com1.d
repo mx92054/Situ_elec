@@ -40,3 +40,4 @@
 ..\..\output\usart_com1.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 ..\..\output\usart_com1.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\usart_com1.o: ..\..\User\SysTick.h
+..\..\output\usart_com1.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h

@@ -28,7 +28,6 @@ void ModbusSvr_NVIC_Configuration(u8 nChn)
  * ******************************************************/
 void ModbusSvr_block_init(Modbus_block *pblk)
 {
-    int tmp;
     unsigned short zone[100];
 
     Flash_Read16BitDatas(FLASH_USER_START_ADDR1, 100, (short *)zone);
@@ -45,25 +44,22 @@ void ModbusSvr_block_init(Modbus_block *pblk)
         zone[94] = 200;
     if (zone[94] > 500)
         zone[94] = 500;
-    tmp = zone[93] + zone[94];
-    if (tmp > 0xFFFF)
-        zone[93] = 0xFFFF - zone[94];
+    if (zone[93] > 5000)
+        zone[93] = 0;
 
     if (zone[96] < 200) //保持寄存器地址检查
         zone[96] = 200;
     if (zone[96] > 500)
         zone[96] = 500;
-    tmp = zone[95] + zone[96];
-    if (tmp > 0xFFFF)
-        zone[95] = 0xFFFF - zone[96];
+    if (zone[95] > 5000)
+        zone[95] = 0;
 
     if (zone[98] < 200) //只读寄存器地址检查
         zone[98] = 200;
     if (zone[98] > 500)
         zone[98] = 500;
-    tmp = zone[97] + zone[98];
-    if (tmp > 0xFFFF)
-        zone[97] = 0xFFFF - zone[98];
+    if (zone[97] > 5000)
+        zone[97] = 0;
 
     pblk->station = zone[90];
     pblk->baudrate = zone[91] * 100;

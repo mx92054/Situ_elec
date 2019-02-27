@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>采矿车通信板</TargetName>
+      <TargetName>原位测试通信板1#</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <TargetOption>
@@ -717,16 +717,6 @@
               <FilePath>..\..\User\usart_com1.c</FilePath>
             </File>
             <File>
-              <FileName>usart_spd3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\usart_spd3.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart_dam.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\usart_dam.c</FilePath>
-            </File>
-            <File>
               <FileName>usart_com2.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\usart_com2.c</FilePath>
@@ -735,6 +725,11 @@
               <FileName>usart_com3.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\usart_com3.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart_com4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\usart_com4.c</FilePath>
             </File>
           </Files>
         </Group>

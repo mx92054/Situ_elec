@@ -48,10 +48,9 @@
 "..\..\output\bsp_innerflash.o"
 "..\..\output\mbsvr_comm.o"
 "..\..\output\usart_com1.o"
-"..\..\output\usart_spd3.o"
-"..\..\output\usart_dam.o"
 "..\..\output\usart_com2.o"
 "..\..\output\usart_com3.o"
+"..\..\output\usart_com4.o"
 --library_type=microlib --strict --scatter "..\..\Output\Template.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

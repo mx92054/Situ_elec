@@ -19,8 +19,7 @@
 #include "usart_com1.h"
 #include "usart_com2.h"
 #include "usart_com3.h"
-#include "usart_spd3.h"
-#include "usart_dam.h"
+#include "usart_com4.h"
 
 int main(void)
 {
@@ -28,11 +27,11 @@ int main(void)
 	GPIO_Config();  //GPIO初始化
 
 	Modbus_init(); //上位机通信初始化
-	SLV5_init();
 
 	POW_Init();
 	MOT_Init();
 	ELC_Init();
+	INS_Init();
 
 	SetTimer(0, 500);
 	SetTimer(1, 1000);
@@ -43,11 +42,11 @@ int main(void)
 	while (1)
 	{
 		Modbus_task(); //通信出来进程
-		SLV5_task();
 
 		POW_Task();
 		MOT_Task();
 		ELC_Task();
+		INS_Task();
 
 		if (GetTimer(0))
 		{
@@ -66,6 +65,7 @@ int main(void)
 			POW_TxCmd();
 			MOT_TxCmd();
 			ELC_TxCmd();
+			INS_TxCmd();
 		}
 	}
 }

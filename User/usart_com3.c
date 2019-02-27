@@ -2,6 +2,7 @@
 #include "Mbsvr_comm.h"
 #include "SysTick.h"
 #include "stm32f4xx_conf.h"
+#include <stdio.h>
 
 extern Modbus_block mblock1;
 elcboard_para elcpara[ELC_NUM] = {
@@ -143,7 +144,7 @@ void ELC_TxCmd(void)
     {
         ELC_WrFrame[0] = elcpara[nCurBoard].station; //站地址
         ELC_WrFrame[1] = 0x06;
-        ELC_WrFrame[3] = elcpara[nCurBoard].startadr + iWr;
+        ELC_WrFrame[3] = elcpara[nCurBoard].wr_startadr + iWr;
         ELC_WrFrame[4] = *ptrW >> 8;
         ELC_WrFrame[5] = *ptrW & 0x00FF;
         uCRC = CRC16(ELC_WrFrame, 6);
