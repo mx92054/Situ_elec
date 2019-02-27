@@ -5,11 +5,11 @@
 
 extern Modbus_block mblock1;
 elcboard_para elcpara[ELC_NUM] = {
-    {1, 0, 24, 80, 24, 200, 16, 8}, //1#开关量输入输出板
-    {2, 0, 24, 104, 24, 216, 16, 8}, //2#开关量输出板
-    {3, 0, 10, 60, 10, 0, 0, 0},
-    {4, 0, 10, 70, 10, 0, 0, 0},
-    {5, 0, 8, 130, 8, 232, 8, 0}};
+    {1, 0, 24, 80, 24, 200, 16, 8, 88},   //1#开关量输入输出板
+    {2, 0, 24, 104, 24, 216, 16, 8, 112}, //2#开关量输出板
+    {3, 0, 10, 60, 10, 0, 0, 0, 0},
+    {4, 0, 10, 70, 10, 0, 0, 0, 0},
+    {5, 0, 8, 130, 8, 232, 8, 0, 130}};
 
 u8 ELC_frame[8] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 u8 ELC_WrFrame[8] = {0x01, 0x06, 0x00, 0x00, 0x00, 0x00, 0xCC, 0xCC};
@@ -19,8 +19,11 @@ u8 ELC_bRecv;
 u8 ELC_frame_len = 85;
 u8 ELC_bFirst = 1;
 int nCurBoard = 0; //当前访问的控制板地址号
+short nElcStatus[ELC_NUM] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};
+u32 status; 
 
 u32 ulELCTick[ELC_NUM] = {0, 0, 0, 0, 0};
+
 //-------------------------------------------------------------------------------
 //	@brief	串口初始化
 //	@param	None
@@ -108,6 +111,10 @@ void ELC_Init(void)
 void ELC_TxCmd(void)
 {
     u16 uCRC;
+    int i;
+    int iWr = -1;
+    short *ptrW;
+    short *ptrR;
 
     if (ELC_bRecv == 1) //如果当前未完成接收，则通信错误计数器递增
         mblock1.ptrRegs[ELC_COM_FAIL + nCurBoard]++;
@@ -115,6 +122,37 @@ void ELC_TxCmd(void)
     ELC_curptr = 0;
     ELC_bRecv = 1;
     nCurBoard = (nCurBoard + 1) % ELC_NUM;
+
+    ptrW = mblock1.ptrRegs + elcpara[nCurBoard].wr_adr;
+    ptrR = mblock1.ptrRegs + elcpara[nCurBoard].wr_retadr;
+    for (i = 0; i < elcpara[nCurBoard].wr_len; i++)
+    {
+        status = nElcStatus[nCurBoard] & (0x01 << i);
+        if (*ptrW != *ptrR && status)
+        {
+            iWr = i;
+            nElcStatus[nCurBoard] &= ~(0x01 << i);
+            mblock1.ptrRegs[156]++;
+            break;
+        }
+        ptrW++;
+        ptrR++;
+    }
+
+    if (iWr != -1)
+    {
+        ELC_WrFrame[0] = elcpara[nCurBoard].station; //站地址
+        ELC_WrFrame[1] = 0x06;
+        ELC_WrFrame[3] = elcpara[nCurBoard].startadr + iWr;
+        ELC_WrFrame[4] = *ptrW >> 8;
+        ELC_WrFrame[5] = *ptrW & 0x00FF;
+        uCRC = CRC16(ELC_WrFrame, 6);
+        ELC_WrFrame[6] = uCRC & 0x00FF;        //CRC low
+        ELC_WrFrame[7] = (uCRC & 0xFF00) >> 8; //CRC high
+        Usart_SendBytes(USART_ELC, ELC_WrFrame, 8);
+        ELC_frame_len = 8;
+        return;
+    }
 
     ELC_frame[0] = elcpara[nCurBoard].station; //站地址
     ELC_frame[1] = 0x03;
@@ -138,15 +176,15 @@ void ELC_Task(void)
     u8 *ptr;
     short *pReg;
     int i;
-    u8 station ;
+    u8 station;
 
     if (ELC_curptr < ELC_frame_len)
         return;
 
-    if (ELC_buffer[0] < 1 && ELC_buffer[0] > ELC_NUM) //站地址判断
+    if (ELC_buffer[0] < 1 || ELC_buffer[0] > ELC_NUM) //站地址判断
         return;
 
-    station = ELC_buffer[0]  -1 ;
+    station = ELC_buffer[0] - 1;
 
     tick = GetCurTick();
     if (ELC_buffer[1] == 0x03 || ELC_buffer[1] == 0x06) //读命令成功返回
@@ -161,6 +199,7 @@ void ELC_Task(void)
                 *pReg |= *ptr++;
                 pReg++;
             }
+            nElcStatus[station] = 0xFFFF;
         }
 
         mblock1.ptrRegs[ELC_COM_TIM + station] = tick - ulELCTick[station];

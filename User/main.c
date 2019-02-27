@@ -32,6 +32,7 @@ int main(void)
 
 	POW_Init();
 	MOT_Init();
+	ELC_Init();
 
 	SetTimer(0, 500);
 	SetTimer(1, 1000);
@@ -46,6 +47,7 @@ int main(void)
 
 		POW_Task();
 		MOT_Task();
+		ELC_Task();
 
 		if (GetTimer(0))
 		{
@@ -63,6 +65,7 @@ int main(void)
 		{
 			POW_TxCmd();
 			MOT_TxCmd();
+			ELC_TxCmd();
 		}
 	}
 }

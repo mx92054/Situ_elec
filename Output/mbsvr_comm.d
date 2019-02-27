@@ -2,7 +2,7 @@
 ..\..\output\mbsvr_comm.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\mbsvr_comm.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\mbsvr_comm.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h
@@ -40,5 +40,5 @@
 ..\..\output\mbsvr_comm.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 ..\..\output\mbsvr_comm.o: ..\..\User\bsp_innerflash.h
 ..\..\output\mbsvr_comm.o: ..\..\User\SysTick.h
-..\..\output\mbsvr_comm.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\string.h
-..\..\output\mbsvr_comm.o: D:\ExtProgram\keil\ARM\ARMCC\Bin\..\include\stdlib.h
+..\..\output\mbsvr_comm.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\string.h
+..\..\output\mbsvr_comm.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdlib.h

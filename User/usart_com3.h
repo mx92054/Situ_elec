@@ -45,7 +45,8 @@ typedef struct tag_elcboard_para
     int ramlen;   //需要保存在内存中的长度
     u8 wr_adr;    //需要写入的寄存器地址 0-表示不需要
     u8 wr_len;    //需要写入的寄存器长度
-    u8 wr_startadr ; 
+    u8 wr_startadr ; //写入的寄存器对应在内存中的起始地址
+    u8 wr_retadr;  //写入的寄存器返回在内存中的起始地址
 } elcboard_para;
 
 //----------------------------------------------------------------
