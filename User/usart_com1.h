@@ -2,7 +2,6 @@
 #define __POW_USART__
 
 #include "stm32f4xx.h"
-#include "Mbsvr_comm.h"
 
 //  COM1 Define
 

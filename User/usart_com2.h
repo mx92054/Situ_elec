@@ -1,5 +1,5 @@
-#ifndef __SPEED1_USART__
-#define __SPEED1_USART__
+#ifndef __MOT_USART__
+#define __MOT_USART__
 
 #include "stm32f4xx.h"
 
@@ -39,8 +39,8 @@
 #define MOT_SW_ADR 140   //电机板开关控制地址
 
 //------------------------------------------------
-void MOT_init(void);
-void MOT_task(void);
+void MOT_Init(void);
+void MOT_Task(void);
 void MOT_TxCmd(void);
 void MOT_USART_IRQHandler(void);
 

@@ -1,5 +1,5 @@
-#ifndef __SPEED2_USART__
-#define __SPEED2_USART__
+#ifndef __ELC_USART__
+#define __ELC_USART__
 
 #include "stm32f4xx.h"
 
@@ -38,21 +38,22 @@
 
 typedef struct tag_elcboard_para
 {
-    u8 station;  //从站的站号
-    u8 startadr; //从站的起始地址
-    u8 reglen;   //读取从站寄存器长度
-    int ramadr;   //保存在内存中的地址
-    int ramlen;   //需要保存在内存中的长度
-    u8 wr_adr;    //需要写入的寄存器地址 0-表示不需要
-    u8 wr_len;    //需要写入的寄存器长度
-    u8 wr_startadr ; //写入的寄存器对应在内存中的起始地址
-    u8 wr_retadr;  //写入的寄存器返回在内存中的起始地址
+    u8 station;     //从站的站号
+    u8 startadr;    //从站的起始地址
+    u8 reglen;      //读取从站寄存器长度
+    int ramadr;     //保存在内存中的地址
+    int ramlen;     //需要保存在内存中的长度
+    u8 wr_adr;      //需要写入的寄存器地址 0-表示不需要
+    u8 wr_len;      //需要写入的寄存器长度
+    u8 wr_startadr; //写入的寄存器对应在内存中的起始地址
+    u8 wr_retadr;   //写入的寄存器返回在内存中的起始地址
 } elcboard_para;
 
 //----------------------------------------------------------------
-void ELC_init(void);
-void ELC_task(void);
+void ELC_Init(void);
+void ELC_Task(void);
 void ELC_Timer(void);
+void ELC_TxCmd(void);
 void ELC_USART_IRQHandler(void);
 
 #endif

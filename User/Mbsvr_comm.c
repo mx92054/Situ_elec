@@ -135,12 +135,7 @@ static void ModbusSvr_normal_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
     pblk->tsk_buf[pblk->trans_len - 1] = uCrc1 >> 8;
 
     //-------------Transmitter frame---------------------------------
-    for (i = 0; i < pblk->trans_len; i++)
-    {
-        USART_SendData(pUSARTx, pblk->tsk_buf[i]);
-        while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TC) == RESET)
-            ;
-    }
+    Usart_SendBytes(pUSARTx, pblk->tsk_buf, pblk->trans_len) ;
 }
 
 /*********************************************************
@@ -163,12 +158,7 @@ static void ModbusSvr_error_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
     pblk->tsk_buf[4] = uCrc1 >> 8;
 
     //-------------Transmitter frame---------------------------------
-    for (i = 0; i < 5; i++)
-    {
-        USART_SendData(pUSARTx, pblk->tsk_buf[i]);
-        while (USART_GetFlagStatus(pUSARTx, USART_FLAG_TC) == RESET)
-            ;
-    }
+     Usart_SendBytes(pUSARTx, pblk->tsk_buf, 5) ;
 }
 
 /*********************************************************

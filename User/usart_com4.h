@@ -32,17 +32,19 @@
 //---------------------------------------------------------------
 //----------------------------------------------------------------
 #define INS_BAUDRATE 115200 //绝缘检测器通信速度
-#define INS_STATION 1      //绝缘检测器站地址
-#define INS_REG_LEN 1      //绝缘检测器参数长度
+#define INS_STATION 1       //绝缘检测器站地址
+#define INS_REG_LEN 1       //绝缘检测器参数长度
 
 #define INS_CUR_VAL 128  //绝缘检测器
 #define INS_CUR_TICK 169 //绝缘检测器
 #define INS_COM_SUCS 179 //绝缘检测器
 #define INS_COM_FAIL 189 //绝缘检测器
+
 //----------------------------------------------------------------
-void INS_init(void);
-void INS_task(void);
+void INS_Init(void);
+void INS_Task(void);
 void INS_Timer(void);
+void INS_TxCmd(void);
 void INS_USART_IRQHandler(void);
 
 #endif

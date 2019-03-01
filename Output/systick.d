@@ -2,7 +2,7 @@
 ..\..\output\systick.o: ..\..\User\SysTick.h
 ..\..\output\systick.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\systick.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\systick.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\systick.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\systick.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\systick.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\systick.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h

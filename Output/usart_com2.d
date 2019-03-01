@@ -2,7 +2,7 @@
 ..\..\output\usart_com2.o: ..\..\User\usart_com2.h
 ..\..\output\usart_com2.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\usart_com2.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\usart_com2.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\usart_com2.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\usart_com2.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\usart_com2.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\usart_com2.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h
@@ -40,4 +40,4 @@
 ..\..\output\usart_com2.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 ..\..\output\usart_com2.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\usart_com2.o: ..\..\User\SysTick.h
-..\..\output\usart_com2.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\usart_com2.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
