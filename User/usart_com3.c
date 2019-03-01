@@ -1,16 +1,17 @@
+#include "stm32f4xx_conf.h"
 #include "usart_com3.h"
 #include "Mbsvr_comm.h"
 #include "SysTick.h"
-#include "stm32f4xx_conf.h"
 #include <stdio.h>
 
 extern Modbus_block mblock1;
+
 elcboard_para elcpara[ELC_NUM] = {
     {1, 0, 24, 80, 24, 200, 16, 8, 88},   //1#开关量输入输出板
     {2, 0, 24, 104, 24, 216, 16, 8, 112}, //2#开关量输出板
-    {3, 0, 10, 60, 10, 0, 0, 0, 0},
-    {4, 0, 10, 70, 10, 0, 0, 0, 0},
-    {5, 0, 8, 130, 8, 232, 8, 0, 130}};
+    {3, 0, 10, 60, 10, 0, 0, 0, 0},       //温度检测板
+    {4, 0, 10, 70, 10, 0, 0, 0, 0},       //漏水检测板
+    {5, 0, 8, 130, 8, 232, 8, 0, 130}};   //舱内开关板
 
 u8 ELC_frame[8] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 u8 ELC_WrFrame[8] = {0x01, 0x06, 0x00, 0x00, 0x00, 0x00, 0xCC, 0xCC};
@@ -24,68 +25,6 @@ short nElcStatus[ELC_NUM] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};
 u32 status;
 
 u32 ulELCTick[ELC_NUM] = {0, 0, 0, 0, 0};
-
-//-------------------------------------------------------------------------------
-//	@brief	串口初始化
-//	@param	None
-//	@retval	None
-//-------------------------------------------------------------------------------
-static void ELC_Config(int wBaudrate)
-{
-    GPIO_InitTypeDef GPIO_InitStructure;
-    USART_InitTypeDef USART_InitStructure;
-
-    RCC_AHB1PeriphClockCmd(ELC_USART_RX_GPIO_CLK | ELC_USART_TX_GPIO_CLK, ENABLE);
-
-    /* 使能 USART 时钟 */
-    ELC_USART_APBxClkCmd(ELC_USART_CLK, ENABLE);
-
-    /* GPIO初始化 */
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-
-    /* 配置Tx引脚为复用功能  */
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Pin = ELC_USART_TX_PIN;
-    GPIO_Init(ELC_USART_TX_GPIO_PORT, &GPIO_InitStructure);
-
-    /* 配置Rx引脚为复用功能 */
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Pin = ELC_USART_RX_PIN;
-    GPIO_Init(ELC_USART_RX_GPIO_PORT, &GPIO_InitStructure);
-
-    /* 连接 PXx 到 USARTx_Tx*/
-    GPIO_PinAFConfig(ELC_USART_RX_GPIO_PORT, ELC_USART_RX_SOURCE, ELC_USART_RX_AF);
-
-    /*  连接 PXx 到 USARTx__Rx*/
-    GPIO_PinAFConfig(ELC_USART_TX_GPIO_PORT, ELC_USART_TX_SOURCE, ELC_USART_TX_AF);
-
-    /* 配置串ELC_USART 模式 */
-    /* 波特率设置：ELC_USART_BAUDRATE */
-    USART_InitStructure.USART_BaudRate = wBaudrate;
-    /* 字长(数据位+校验位)：8 */
-    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-    /* 停止位：1个停止位 */
-    USART_InitStructure.USART_StopBits = USART_StopBits_1;
-    /* 校验位选择：不使用校验 */
-    USART_InitStructure.USART_Parity = USART_Parity_No;
-    /* 硬件流控制：不使用硬件流 */
-    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    /* USART模式控制：同时使能接收和发送 */
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-    /* 完成USART初始化配置 */
-    USART_Init(USART_ELC, &USART_InitStructure);
-
-    /* 嵌套向量中断控制器NVIC配置 */
-    ModbusSvr_NVIC_Configuration(ELC_USART_IRQ);
-
-    /* 使能串口接收中断 */
-    USART_ITConfig(USART_ELC, USART_IT_RXNE, ENABLE);
-
-    /* 使能串口 */
-    USART_Cmd(USART_ELC, ENABLE);
-}
 
 /****************************************************************
  *	@brief:	    ELC通信初始化程序
@@ -144,7 +83,6 @@ void ELC_TxCmd(void)
         {
             iWr = i;
             nElcStatus[nCurBoard] &= ~(0x01 << i);
-            mblock1.ptrRegs[156]++;
             break;
         }
         ptrW++;
@@ -154,7 +92,6 @@ void ELC_TxCmd(void)
     if (iWr != -1)
     {
         ELC_WrFrame[0] = elcpara[nCurBoard].station; //站地址
-        ELC_WrFrame[1] = 0x06;
         ELC_WrFrame[3] = elcpara[nCurBoard].wr_startadr + iWr;
         ELC_WrFrame[4] = *ptrW >> 8;
         ELC_WrFrame[5] = *ptrW & 0x00FF;
@@ -167,7 +104,6 @@ void ELC_TxCmd(void)
     }
 
     ELC_frame[0] = elcpara[nCurBoard].station; //站地址
-    ELC_frame[1] = 0x03;
     ELC_frame[3] = elcpara[nCurBoard].startadr;
     ELC_frame[5] = elcpara[nCurBoard].reglen;
     uCRC = CRC16(ELC_frame, 6);
@@ -242,6 +178,68 @@ void ELC_USART_IRQHandler(void)
     {
         USART_ITConfig(USART_ELC, USART_IT_TXE, DISABLE);
     }
+}
+
+//-------------------------------------------------------------------------------
+//	@brief	串口初始化
+//	@param	None
+//	@retval	None
+//-------------------------------------------------------------------------------
+static void ELC_Config(int wBaudrate)
+{
+    GPIO_InitTypeDef GPIO_InitStructure;
+    USART_InitTypeDef USART_InitStructure;
+
+    RCC_AHB1PeriphClockCmd(ELC_USART_RX_GPIO_CLK | ELC_USART_TX_GPIO_CLK, ENABLE);
+
+    /* 使能 USART 时钟 */
+    ELC_USART_APBxClkCmd(ELC_USART_CLK, ENABLE);
+
+    /* GPIO初始化 */
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
+    /* 配置Tx引脚为复用功能  */
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_Pin = ELC_USART_TX_PIN;
+    GPIO_Init(ELC_USART_TX_GPIO_PORT, &GPIO_InitStructure);
+
+    /* 配置Rx引脚为复用功能 */
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_Pin = ELC_USART_RX_PIN;
+    GPIO_Init(ELC_USART_RX_GPIO_PORT, &GPIO_InitStructure);
+
+    /* 连接 PXx 到 USARTx_Tx*/
+    GPIO_PinAFConfig(ELC_USART_RX_GPIO_PORT, ELC_USART_RX_SOURCE, ELC_USART_RX_AF);
+
+    /*  连接 PXx 到 USARTx__Rx*/
+    GPIO_PinAFConfig(ELC_USART_TX_GPIO_PORT, ELC_USART_TX_SOURCE, ELC_USART_TX_AF);
+
+    /* 配置串ELC_USART 模式 */
+    /* 波特率设置：ELC_USART_BAUDRATE */
+    USART_InitStructure.USART_BaudRate = wBaudrate;
+    /* 字长(数据位+校验位)：8 */
+    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+    /* 停止位：1个停止位 */
+    USART_InitStructure.USART_StopBits = USART_StopBits_1;
+    /* 校验位选择：不使用校验 */
+    USART_InitStructure.USART_Parity = USART_Parity_No;
+    /* 硬件流控制：不使用硬件流 */
+    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    /* USART模式控制：同时使能接收和发送 */
+    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+    /* 完成USART初始化配置 */
+    USART_Init(USART_ELC, &USART_InitStructure);
+
+    /* 嵌套向量中断控制器NVIC配置 */
+    ModbusSvr_NVIC_Configuration(ELC_USART_IRQ);
+
+    /* 使能串口接收中断 */
+    USART_ITConfig(USART_ELC, USART_IT_RXNE, ENABLE);
+
+    /* 使能串口 */
+    USART_Cmd(USART_ELC, ENABLE);
 }
 
 //-----------------------------End of file--------------------------------------------------

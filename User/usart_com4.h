@@ -46,6 +46,7 @@ void INS_Task(void);
 void INS_Timer(void);
 void INS_TxCmd(void);
 void INS_USART_IRQHandler(void);
+static void INS_Config(int baud);
 
 #endif
 

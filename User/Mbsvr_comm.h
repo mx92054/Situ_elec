@@ -51,8 +51,8 @@ typedef struct tag_ModbusModule
     u8 uFrameInterval;    //帧间隙
     u8 errno;             //当前错误代号
     __IO u16 nMBInterval; //接受字符间隙计数器
-    u8 bSaved;
-    u32 uLTick; //上一次接收成功的tick值
+    u8 bSaved;            //寄存器改变标志
+    u32 uLTick;           //上一次接收成功的tick值
 } Modbus_block;
 
 //----------------------------------------------------------------------------------

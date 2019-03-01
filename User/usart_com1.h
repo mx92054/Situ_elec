@@ -42,8 +42,8 @@
 void POW_Init(void);
 void POW_Task(void);
 void POW_TxCmd(void);
-
 void POW_USART_IRQHandler(void);
+static void POW_Config(int baud);
 
 #endif
 // --------------End of file------------------------
