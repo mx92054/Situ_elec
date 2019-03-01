@@ -38,7 +38,7 @@ void ModbusSvr_block_init(Modbus_block *pblk)
     if (zone[91] != 96 && zone[91] != 192 && zone[91] != 384 && zone[91] != 576 && zone[91] != 1152)
         zone[91] = 1152; //波特率检查
 
-    zone[92]++; //启动次数加一
+    zone[99]++; //启动次数加一
 
     if (zone[94] < 200) //线圈地址及长度检查
         zone[94] = 200;
@@ -246,7 +246,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
             return 3; // ILLEGAL DATA VALUE
         if (reg_adr < pblk->uCoilStartAdr)
             return 2; //ILLEGAL DATA ADDRESS
-        if ((reg_adr + data_len) >= pblk->uCoilEndAdr)
+        if ((reg_adr + data_len) > pblk->uCoilEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         ptr = &tsk_buf[2];
@@ -292,7 +292,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
     {
         if (reg_adr < pblk->uCoilStartAdr)
             return 2; //ILLEGAL DATA ADDRESS
-        if ((reg_adr + data_len) >= pblk->uCoilEndAdr)
+        if ((reg_adr + data_len) > pblk->uCoilEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         cur_bit = 0;
@@ -318,7 +318,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
             return 3; // ILLEGAL DATA VALUE
         if (reg_adr < pblk->uRegStartAdr)
             return 2; //ILLEGAL DATA ADDRESS
-        if ((reg_adr + data_len) >= pblk->uRegEndAdr)
+        if ((reg_adr + data_len) > pblk->uRegEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         ptr = &tsk_buf[2];
@@ -341,7 +341,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
             return 3; // ILLEGAL DATA VALUE
         if (reg_adr < pblk->uRomStartAdr)
             return 2; //ILLEGAL DATA ADDRESS
-        if ((reg_adr + data_len) >= pblk->uRomEndAdr)
+        if ((reg_adr + data_len) > pblk->uRomEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         ptr = &tsk_buf[2];
@@ -374,7 +374,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
     {
         if (reg_adr < pblk->uRegStartAdr)
             return 2; //ILLEGAL DATA ADDRESS
-        if ((reg_adr + data_len) >= pblk->uRegEndAdr)
+        if ((reg_adr + data_len) > pblk->uRegEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         ptr = &tsk_buf[7];
