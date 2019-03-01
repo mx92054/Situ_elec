@@ -3,8 +3,17 @@
 
 #include "stm32f4xx.h"
 
-#define REG_LEN 200
-#define COIL_LEN 200
+#define MB_STATION 90
+#define MB_BAUDRATE 91
+#define MB_TICK 92
+#define MB_COILSTARTADR 93
+#define MB_COILLEN 94
+#define MB_REGSTARTADR 95
+#define MB_REGLEN 96
+#define MB_INPUTSTARTADR 97
+#define MB_INPUTLEN 98
+#define MB_BOOTNUM 99
+
 #define BIT2BYTE(n) ((((n)&0x0007) == 0) ? ((n) >> 3) : (((n) >> 3) + 1))
 #define SETBIT_BYTE(n, bit) ((n) | (0x01 << (bit)))
 #define RESETBIT_BYTE(n, bit) ((n) & (~(0x01 << (bit))))
@@ -12,28 +21,24 @@
 
 typedef struct tag_ModbusModule
 {
-    int SaveNo ;
+    int SaveNo;
     int baudrate;
     short station;
 
-    short wReg[REG_LEN];   //保持存储器
-    short coils[COIL_LEN]; //继电器存储器
+    int uCoilStartAdr;
+    int uCoilLen; //线圈数目
+    int uCoilEndAdr;
+    short *ptrCoils; //保持线圈的地方
 
-    int uCoilStartAdr ;
-    int uCoilLen;  //线圈数目
-    int uCoilEndAdr ;
-    short *ptrCoils; //保持线圈的地方  
-    
-    int uRomStartAdr ;
-    int uRomLen;   //只读寄存器长度
-    int uRomEndAdr ;
-    short *ptrRoms;  //只读寄存器的地方
+    int uRomStartAdr;
+    int uRomLen; //只读寄存器长度
+    int uRomEndAdr;
+    short *ptrRoms; //只读寄存器的地方
 
-    int uRegStartAdr ;
-    int uRegLen;   //保持寄存器长度
-    int uRegEndAdr ;
-    short *ptrRegs;  //保持寄存器的地方
-
+    int uRegStartAdr;
+    int uRegLen; //保持寄存器长度
+    int uRegEndAdr;
+    short *ptrRegs; //保持寄存器的地方
 
     u8 buffer[512]; //缓冲区
     u8 *tsk_buf;    //处理程序缓冲
@@ -50,7 +55,6 @@ typedef struct tag_ModbusModule
     u32 uLTick; //上一次接收成功的tick值
 } Modbus_block;
 
-
 //----------------------------------------------------------------------------------
 void ModbusSvr_block_init(Modbus_block *pblk); //初始化
 void ModbusSvr_task(Modbus_block *pblk, USART_TypeDef *pUSARTx);
@@ -61,7 +65,7 @@ void ModbusSvr_NVIC_Configuration(u8 nChn);
 
 u16 CRC16(const uint8_t *nData, uint8_t wLength);
 void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch);
-void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t* ptr, int n);
+void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t *ptr, int n);
 void Usart_SendString(USART_TypeDef *pUSARTx, char *str);
 void Usart_SendHalfWord(USART_TypeDef *pUSARTx, uint16_t ch);
 

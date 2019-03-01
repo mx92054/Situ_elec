@@ -86,6 +86,8 @@ static void MOT_Config(int wBaudrate)
 void MOT_Init(void)
 {
     u16 uCRC;
+    short* ptrW ;
+    int i = 5 ;
 
     MOT_Config(MOT_BAUDRATE);
 
@@ -98,6 +100,11 @@ void MOT_Init(void)
     uCRC = CRC16(MOT_frame, 6);
     MOT_frame[6] = uCRC & 0x00FF;        //CRC low
     MOT_frame[7] = (uCRC & 0xFF00) >> 8; //CRC high
+
+    //初始值设定为0
+    ptrW = mblock1.ptrRegs + MOT_SW_ADR;
+    while(i--)
+        *ptrW++ = 0 ;
 }
 
 //-------------------------------------------------------------------------------

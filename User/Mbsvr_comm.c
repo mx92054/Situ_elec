@@ -32,56 +32,56 @@ void ModbusSvr_block_init(Modbus_block *pblk)
 
     Flash_Read16BitDatas(FLASH_USER_START_ADDR1, 100, (short *)zone);
 
-    if (zone[90] == 0 || zone[90] > 254) //站地址设置检查
-        zone[90] = 1;
+    if (zone[MB_STATION] == 0 || zone[MB_STATION] > 254) //站地址设置检查
+        zone[MB_STATION] = 1;
 
-    if (zone[91] != 96 && zone[91] != 192 && zone[91] != 384 && zone[91] != 576 && zone[91] != 1152)
-        zone[91] = 1152; //波特率检查
+    if (zone[MB_BAUDRATE] != 96 && zone[MB_BAUDRATE] != 192 && zone[MB_BAUDRATE] != 384 && zone[MB_BAUDRATE] != 576 && zone[MB_BAUDRATE] != 1152)
+        zone[MB_BAUDRATE] = 1152; //波特率检查
 
-    zone[99]++; //启动次数加一
+    zone[MB_BOOTNUM]++; //启动次数加一
 
-    if (zone[94] < 200) //线圈地址及长度检查
-        zone[94] = 200;
-    if (zone[94] > 500)
-        zone[94] = 500;
-    if (zone[93] > 5000)
-        zone[93] = 0;
+    if (zone[MB_COILLEN] < 200) //线圈地址及长度检查
+        zone[MB_COILLEN] = 200;
+    if (zone[MB_COILLEN] > 500)
+        zone[MB_COILLEN] = 500;
+    if (zone[MB_COILSTARTADR] > 5000)
+        zone[MB_COILSTARTADR] = 0;
 
-    if (zone[96] < 200) //保持寄存器地址检查
-        zone[96] = 200;
-    if (zone[96] > 500)
-        zone[96] = 500;
-    if (zone[95] > 5000)
-        zone[95] = 0;
+    if (zone[MB_REGLEN] < 200) //保持寄存器地址检查
+        zone[MB_REGLEN] = 200;
+    if (zone[MB_REGLEN] > 500)
+        zone[MB_REGLEN] = 500;
+    if (zone[MB_REGSTARTADR] > 5000)
+        zone[MB_REGSTARTADR] = 0;
 
-    if (zone[98] < 200) //只读寄存器地址检查
-        zone[98] = 200;
-    if (zone[98] > 500)
-        zone[98] = 500;
-    if (zone[97] > 5000)
-        zone[97] = 0;
+    if (zone[MB_INPUTLEN] < 200) //只读寄存器地址检查
+        zone[MB_INPUTLEN] = 200;
+    if (zone[MB_INPUTLEN] > 500)
+        zone[MB_INPUTLEN] = 500;
+    if (zone[MB_INPUTSTARTADR] > 5000)
+        zone[MB_INPUTSTARTADR] = 0;
 
-    pblk->station = zone[90];
-    pblk->baudrate = zone[91] * 100;
+    pblk->station = zone[MB_STATION];
+    pblk->baudrate = zone[MB_BAUDRATE] * 100;
 
-    pblk->uCoilStartAdr = zone[93];
-    pblk->uCoilLen = zone[94];
-    pblk->uCoilEndAdr = zone[93] + zone[94];
-    pblk->ptrCoils = (short *)malloc(zone[94] * sizeof(short));
+    pblk->uCoilStartAdr = zone[MB_COILSTARTADR];
+    pblk->uCoilLen = zone[MB_COILLEN];
+    pblk->uCoilEndAdr = zone[MB_COILSTARTADR] + zone[MB_COILLEN];
+    pblk->ptrCoils = (short *)malloc(zone[MB_COILLEN] * sizeof(short));
     if (pblk->ptrCoils == NULL)
         pblk->uCoilLen = 9999;
 
-    pblk->uRegStartAdr = zone[95];
-    pblk->uRegLen = zone[96];
-    pblk->uRegEndAdr = zone[95] + zone[96];
-    pblk->ptrRegs = (short *)malloc(zone[96] * sizeof(short));
+    pblk->uRegStartAdr = zone[MB_REGSTARTADR];
+    pblk->uRegLen = zone[MB_REGLEN];
+    pblk->uRegEndAdr = zone[MB_REGSTARTADR] + zone[MB_REGLEN];
+    pblk->ptrRegs = (short *)malloc(zone[MB_REGLEN] * sizeof(short));
     if (pblk->ptrRegs == NULL)
         pblk->uRegLen = 9999;
 
-    pblk->uRomStartAdr = zone[97];
-    pblk->uRomLen = zone[98];
-    pblk->uRomEndAdr = zone[97] + zone[98];
-    pblk->ptrRoms = (short *)malloc(zone[98] * sizeof(short));
+    pblk->uRomStartAdr = zone[MB_INPUTSTARTADR];
+    pblk->uRomLen = zone[MB_INPUTLEN];
+    pblk->uRomEndAdr = zone[MB_INPUTSTARTADR] + zone[MB_INPUTLEN];
+    pblk->ptrRoms = (short *)malloc(zone[MB_INPUTLEN] * sizeof(short));
     if (pblk->ptrRoms == NULL)
         pblk->uRomLen = 9999;
 
@@ -127,7 +127,6 @@ void ModbusSvr_block_init(Modbus_block *pblk)
 static void ModbusSvr_normal_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
 {
     u16 uCrc1;
-    int i;
 
     //-----------Product CRC byte------------------------------------
     uCrc1 = CRC16(pblk->tsk_buf, pblk->trans_len - 2);
@@ -135,7 +134,7 @@ static void ModbusSvr_normal_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
     pblk->tsk_buf[pblk->trans_len - 1] = uCrc1 >> 8;
 
     //-------------Transmitter frame---------------------------------
-    Usart_SendBytes(pUSARTx, pblk->tsk_buf, pblk->trans_len) ;
+    Usart_SendBytes(pUSARTx, pblk->tsk_buf, pblk->trans_len);
 }
 
 /*********************************************************
@@ -147,7 +146,6 @@ static void ModbusSvr_normal_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
 static void ModbusSvr_error_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
 {
     u16 uCrc1;
-    int i;
 
     pblk->tsk_buf[1] |= 0x80;
     pblk->tsk_buf[2] = pblk->errno;
@@ -158,7 +156,7 @@ static void ModbusSvr_error_respose(Modbus_block *pblk, USART_TypeDef *pUSARTx)
     pblk->tsk_buf[4] = uCrc1 >> 8;
 
     //-------------Transmitter frame---------------------------------
-     Usart_SendBytes(pUSARTx, pblk->tsk_buf, 5) ;
+    Usart_SendBytes(pUSARTx, pblk->tsk_buf, 5);
 }
 
 /*********************************************************
@@ -264,7 +262,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
     //----------Write single coil---------------------------------
     if (tsk_buf[1] == 5)
     {
-        if (reg_adr < pblk->uCoilStartAdr || reg_adr >= pblk->uCoilEndAdr )
+        if (reg_adr < pblk->uCoilStartAdr || reg_adr >= pblk->uCoilEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         if (data_len == 0xFF00)
@@ -350,7 +348,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk)
     //----------Write single holding register----------------------
     if (tsk_buf[1] == 6)
     {
-        if (reg_adr < pblk->uRegStartAdr || reg_adr >= pblk->uRegEndAdr )
+        if (reg_adr < pblk->uRegStartAdr || reg_adr >= pblk->uRegEndAdr)
             return 2; //ILLEGAL DATA ADDRESS
 
         pblk->ptrRegs[reg_adr - pblk->uRegStartAdr] = data_len;
@@ -500,9 +498,9 @@ void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch)
 //					ch: 待发送的字节
 //	@retval	None
 //-------------------------------------------------------------------------------
-void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t* ptr, int n)
+void Usart_SendBytes(USART_TypeDef *pUSARTx, uint8_t *ptr, int n)
 {
-    while(n--)
+    while (n--)
     {
         Usart_SendByte(pUSARTx, *ptr++);
     }

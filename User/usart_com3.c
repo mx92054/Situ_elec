@@ -21,7 +21,7 @@ u8 ELC_frame_len = 85;
 u8 ELC_bFirst = 1;
 int nCurBoard = 0; //当前访问的控制板地址号
 short nElcStatus[ELC_NUM] = {0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF};
-u32 status; 
+u32 status;
 
 u32 ulELCTick[ELC_NUM] = {0, 0, 0, 0, 0};
 
@@ -95,13 +95,24 @@ static void ELC_Config(int wBaudrate)
 void ELC_Init(void)
 {
     int i;
+    short *ptrW;
 
     ELC_Config(ELC_BAUDRATE);
 
     ELC_curptr = 0;
     ELC_bRecv = 0;
-    for (i = 0; i < ELC_NUM; i++)
-        mblock1.ptrRegs[ELC_COM_FAIL + i] = 0;
+
+    //失败计数器清零
+    ptrW = mblock1.ptrRegs + ELC_COM_FAIL;
+    i = ELC_NUM;
+    while (i--)
+        *ptrW++ = 0;
+
+    //开关指令清零
+    ptrW = mblock1.ptrRegs + 200;
+    i = 40;
+    while (i--)
+        *ptrW++ = 0;
 }
 
 //-------------------------------------------------------------------------------
