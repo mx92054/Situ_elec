@@ -21,7 +21,7 @@ void INS_Init(void)
 {
     u16 uCRC; 
 
-    INS_Config(INS_BAUDRATE);
+    INS_Config(mblock1.ptrRegs[INS_BAUDRATE] * 100);
 
     INS_curptr = 0;
     INS_bRecv = 0;

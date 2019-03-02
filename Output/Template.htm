@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\..\Output\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\..\Output\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Mar 01 23:52:54 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat Mar 02 09:10:02 2019
 <BR><P>
 <H3>Maximum Stack Usage =        356 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -463,7 +463,7 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429_439xx.o(RESET)
 </UL>
-<P><STRONG><a name="[75]"></a>ELC_Init</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, usart_com3.o(i.ELC_Init))
+<P><STRONG><a name="[75]"></a>ELC_Init</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, usart_com3.o(i.ELC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = ELC_Init &rArr; ELC_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ELC_Config
@@ -479,7 +479,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[78]"></a>ELC_TxCmd</STRONG> (Thumb, 298 bytes, Stack size 40 bytes, usart_com3.o(i.ELC_TxCmd))
+<P><STRONG><a name="[78]"></a>ELC_TxCmd</STRONG> (Thumb, 282 bytes, Stack size 40 bytes, usart_com3.o(i.ELC_TxCmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ELC_TxCmd &rArr; Usart_SendBytes &rArr; Usart_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Usart_SendBytes
@@ -609,8 +609,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f429_439xx.o(RESET)
 </UL>
-<P><STRONG><a name="[87]"></a>INS_Init</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, usart_com4.o(i.INS_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = INS_Init &rArr; INS_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
+<P><STRONG><a name="[87]"></a>INS_Init</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, usart_com4.o(i.INS_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = INS_Init &rArr; INS_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;INS_Config
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16
@@ -668,7 +668,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IWDG_Configuration
 </UL>
 
-<P><STRONG><a name="[92]"></a>MOT_Init</STRONG> (Thumb, 82 bytes, Stack size 24 bytes, usart_com2.o(i.MOT_Init))
+<P><STRONG><a name="[92]"></a>MOT_Init</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, usart_com2.o(i.MOT_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = MOT_Init &rArr; MOT_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MOT_Config
@@ -798,7 +798,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusSvr_NVIC_Configuration
 </UL>
 
-<P><STRONG><a name="[a8]"></a>POW_Init</STRONG> (Thumb, 56 bytes, Stack size 24 bytes, usart_com1.o(i.POW_Init))
+<P><STRONG><a name="[a8]"></a>POW_Init</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, usart_com1.o(i.POW_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = POW_Init &rArr; POW_Config &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;POW_Config

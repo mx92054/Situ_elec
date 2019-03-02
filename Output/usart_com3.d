@@ -1,15 +1,14 @@
 ..\..\output\usart_com3.o: ..\..\User\usart_com3.c
-..\..\output\usart_com3.o: ..\..\User\usart_com3.h
+..\..\output\usart_com3.o: ..\..\User\stm32f4xx_conf.h
+..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Include\core_cm4.h
-..\..\output\usart_com3.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\..\output\usart_com3.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Include\core_cmInstr.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Include\core_cmFunc.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Include\core_cmSimd.h
 ..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
 ..\..\output\usart_com3.o: ..\..\User\stm32f4xx_conf.h
-..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-..\..\output\usart_com3.o: ..\..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dbgmcu.h
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h
@@ -38,6 +37,7 @@
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h
 ..\..\output\usart_com3.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
+..\..\output\usart_com3.o: ..\..\User\usart_com3.h
 ..\..\output\usart_com3.o: ..\..\User\Mbsvr_comm.h
 ..\..\output\usart_com3.o: ..\..\User\SysTick.h
-..\..\output\usart_com3.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\..\output\usart_com3.o: D:\Program\Keil\ARM\ARMCC\Bin\..\include\stdio.h

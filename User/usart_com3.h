@@ -31,7 +31,7 @@
 
 //----------------------------------------------------------------
 #define ELC_NUM 5
-#define ELC_BAUDRATE 115200
+#define ELC_BAUDRATE 282
 #define ELC_COM_TIM 164  //电气板通信成功间隔寄存器地址
 #define ELC_COM_SUCS 174 //电气通信成功次数寄存器地址
 #define ELC_COM_FAIL 184 //电气板通信失败次数寄存器地址

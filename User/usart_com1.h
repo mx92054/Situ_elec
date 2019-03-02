@@ -32,7 +32,7 @@
 //--------------------------------------------------------------------
 #define POW_NUM 3          //電源板數目
 #define POW_SAVE_ADR 0     // 电源板参数在wReg中的起始地址
-#define POW_BAUDRATE 38400 //通信波特率
+#define POW_BAUDRATE 280 //通信波特率
 #define POW_COM_TIM 160    //通信成功间隔寄存器地址
 #define POW_COM_SUCS 170   //通信成功次数寄存器地址
 #define POW_COM_FAIL 180   //通信失败次数寄存器地址

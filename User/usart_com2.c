@@ -27,7 +27,7 @@ void MOT_Init(void)
     short* ptrW ;
     int i = 5 ;
 
-    MOT_Config(MOT_BAUDRATE);
+    MOT_Config(mblock1.ptrRegs[MOT_BAUDRATE] * 100);
 
     MOT_curptr = 0;
     MOT_bRecv = 0;

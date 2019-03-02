@@ -30,8 +30,8 @@
 #define MOT_USART_IRQHandler USART3_IRQHandler
 
 //--------------------------------------------------------------------
-#define MOT_SAVE_ADR 30     // 电机板参数在wReg中的起始地址
-#define MOT_BAUDRATE 115200 //电机板通信波特率
+#define MOT_SAVE_ADR 30  // 电机板参数在wReg中的起始地址
+#define MOT_BAUDRATE 281 //电机板通信波特率
 #define MOT_REG_LEN 30
 #define MOT_COM_TIM 163  //电机板通信成功间隔寄存器地址
 #define MOT_COM_SUCS 173 //电机板通信成功次数寄存器地址
@@ -46,4 +46,4 @@ void MOT_USART_IRQHandler(void);
 static void MOT_Config(int baud);
 #endif
 
-    // --------------End of file------------------------
+// --------------End of file------------------------
