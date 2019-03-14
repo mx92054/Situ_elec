@@ -79,6 +79,8 @@ void Modbus_init(void)
 
 	ModbusSvr_block_init(&mblock1);
 	tmp = mblock1.baudrate;
+	mblock1.station = 2;
+	tmp = 115200;
 
 	MODBUS_Config(tmp);
 

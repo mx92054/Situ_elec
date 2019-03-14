@@ -33,7 +33,7 @@
 //----------------------------------------------------------------
 #define INS_BAUDRATE 283 //绝缘检测器通信速度
 #define INS_STATION 1       //绝缘检测器站地址
-#define INS_REG_LEN 1       //绝缘检测器参数长度
+#define INS_REG_LEN 2       //绝缘检测器参数长度
 
 #define INS_CUR_VAL 128  //绝缘检测器
 #define INS_CUR_TICK 169 //绝缘检测器

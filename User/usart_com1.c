@@ -73,7 +73,7 @@ void POW_TxCmd(void)
 		POW_Txbuf[3] = 0x61 + uCurPowNo;						   //address
 		POW_Txbuf[6] = POW_Txbuf[3] + POW_Txbuf[4] + POW_Txbuf[5]; //checksum
 		Usart_SendBytes(USART_POW, POW_Txbuf, 8);
-		POW_Frame_len = 29;
+		POW_Frame_len = 28;
 	}
 
 	uCurPowNo = (uCurPowNo + 1) % POW_NUM; //board address + 1

@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 extern Modbus_block mblock1;
-uint8_t INS_frame[8] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00};
+uint8_t INS_frame[8] = {0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00};
 u8 INS_buffer[256];
 u8 INS_curptr;
 u8 INS_bRecv;
@@ -19,7 +19,7 @@ u32 ulINSTick = 0;
  ****************************************************************/
 void INS_Init(void)
 {
-    u16 uCRC; 
+    u16 uCRC;
 
     INS_Config(mblock1.ptrRegs[INS_BAUDRATE] * 100);
 
@@ -69,8 +69,10 @@ void INS_Task(void)
         return;
 
     tick = GetCurTick();
-    mblock1.ptrRegs[INS_CUR_VAL] = INS_buffer[3] << 0x08 | INS_buffer[4]; //本次绝缘值
-    mblock1.ptrRegs[INS_CUR_TICK] = tick - ulINSTick;                     //本次计时器值
+    mblock1.ptrRegs[INS_CUR_VAL] = INS_buffer[3] << 0x08 | INS_buffer[4];     //本次绝缘值
+    mblock1.ptrRegs[INS_CUR_VAL + 1] = INS_buffer[5] << 0x08 | INS_buffer[6]; //本次绝缘值
+
+    mblock1.ptrRegs[INS_CUR_TICK] = tick - ulINSTick; //本次计时器值
     ulINSTick = tick;
 
     mblock1.ptrRegs[INS_COM_SUCS]++;
