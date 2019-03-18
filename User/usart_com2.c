@@ -27,6 +27,7 @@ void MOT_Init(void)
     short* ptrW ;
     int i = 5 ;
 
+	mblock1.ptrRegs[MOT_BAUDRATE] = 1152 ;
     MOT_Config(mblock1.ptrRegs[MOT_BAUDRATE] * 100);
 
     MOT_curptr = 0;

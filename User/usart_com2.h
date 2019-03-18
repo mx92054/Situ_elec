@@ -43,7 +43,7 @@ void MOT_Init(void);
 void MOT_Task(void);
 void MOT_TxCmd(void);
 void MOT_USART_IRQHandler(void);
-static void MOT_Config(int baud);
+static void MOT_Config(int wBaudrate);
 #endif
 
 // --------------End of file------------------------

@@ -55,7 +55,7 @@ void ELC_Task(void);
 void ELC_Timer(void);
 void ELC_TxCmd(void);
 void ELC_USART_IRQHandler(void);
-static void ELC_Config(int baud);
+static void ELC_Config(int wBaudrate);
 
 #endif
 

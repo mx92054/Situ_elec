@@ -36,6 +36,7 @@ void ELC_Init(void)
     int i;
     short *ptrW;
 
+	mblock1.ptrRegs[ELC_BAUDRATE] = 1152 ;
     ELC_Config(mblock1.ptrRegs[ELC_BAUDRATE] * 100);
 
     ELC_curptr = 0;

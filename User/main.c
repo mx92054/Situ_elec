@@ -51,7 +51,6 @@ int main(void)
 		if (GetTimer(1))
 		{
 			ModbusSvr_save_para(&mblock1);
-			//ModbusSvr_save_para(&Blk_SLV1);
 		}
 
 		if ( GetTimer(2))

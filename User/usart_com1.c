@@ -26,6 +26,7 @@ void POW_Init(void)
 {
 	int i;
 
+	mblock1.ptrRegs[POW_BAUDRATE] = 384;
 	POW_Config(mblock1.ptrRegs[POW_BAUDRATE] * 100);
 
 	for (i = 0; i < 2 * POW_NUM; i++)
