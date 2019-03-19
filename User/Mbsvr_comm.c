@@ -40,6 +40,7 @@ void ModbusSvr_block_init(Modbus_block *pblk)
 
     zone[MB_BOOTNUM]++; //启动次数加一
 
+    /*
     if (zone[MB_COILLEN] < 200) //线圈地址及长度检查
         zone[MB_COILLEN] = 200;
     if (zone[MB_COILLEN] > 500)
@@ -60,6 +61,18 @@ void ModbusSvr_block_init(Modbus_block *pblk)
         zone[MB_INPUTLEN] = 500;
     if (zone[MB_INPUTSTARTADR] > 5000)
         zone[MB_INPUTSTARTADR] = 0;
+
+    pblk->station = zone[MB_STATION];
+    pblk->baudrate = zone[MB_BAUDRATE] * 100;
+    */
+    zone[MB_COILLEN] = 300;
+    zone[MB_COILSTARTADR] = 0;
+    zone[MB_REGLEN] = 300;
+    zone[MB_REGSTARTADR] = 0;
+    zone[MB_INPUTLEN] = 300;
+    zone[MB_INPUTSTARTADR] = 0;
+    zone[MB_STATION] = 2;
+    zone[MB_BAUDRATE] = 1152;
 
     pblk->station = zone[MB_STATION];
     pblk->baudrate = zone[MB_BAUDRATE] * 100;
@@ -118,6 +131,16 @@ void ModbusSvr_block_init(Modbus_block *pblk)
     pblk->isr_buf = pblk->buffer + 256;
 }
 
+/*********************************************************
+ * @desc:  站号设定
+ * @param: no - 站号
+ * @retval:None
+ * ******************************************************/
+void SetStation(Modbus_block *pblk, u8 no)
+{
+    pblk->station = no;
+    pblk->ptrRegs[pblk->uRegLen - 100 + MB_STATION] = no;
+}
 /*********************************************************
  * @desc:  正常应答
  * @param: pblk-指向数据块的指针

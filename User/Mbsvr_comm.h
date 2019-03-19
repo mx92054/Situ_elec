@@ -62,6 +62,7 @@ u8 ModbusSvr_procotol_chain(Modbus_block *pblk);
 void ModbusSvr_save_para(Modbus_block *pblk);
 void ModbusSvr_isr(Modbus_block *pblk, USART_TypeDef *pUSARTx);
 void ModbusSvr_NVIC_Configuration(u8 nChn);
+void SetStation(Modbus_block *pblk, u8 no);
 
 u16 CRC16(const uint8_t *nData, uint8_t wLength);
 void Usart_SendByte(USART_TypeDef *pUSARTx, uint8_t ch);
