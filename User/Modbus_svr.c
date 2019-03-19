@@ -75,9 +75,12 @@ static void MODBUS_Config(u32 baud)
 void Modbus_init(void)
 {
 	char msg[100];
+	int i;
 
 	ModbusSvr_block_init(&mblock1);
 	MODBUS_Config(mblock1.baudrate);
+	for (i = 200; i < 240; i++)
+		mblock1.ptrRegs[i] = 0;
 
 	sprintf(msg, "\r\nStation No: %d, Baudrate: %d", mblock1.station, mblock1.baudrate);
 	Usart_SendString(DEBUG_USARTx, msg);

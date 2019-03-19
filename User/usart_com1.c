@@ -47,10 +47,12 @@ void POW_Init(void)
 void POW_TxCmd(void)
 {
 	int adr1, adr2;
+	int counter;
 
 	if (POW_bRecv == 1) //如果当前未完成接收，则通信错误计数器递增
 	{
-		mblock1.ptrRegs[POW_COM_FAIL + uCurPowNo]++;
+		counter = (uCurPowNo - 1 + POW_NUM) % POW_NUM;
+		mblock1.ptrRegs[POW_COM_FAIL + counter]++;
 	}
 
 	POW_curptr = 0;
@@ -74,7 +76,7 @@ void POW_TxCmd(void)
 		POW_Txbuf[3] = 0x61 + uCurPowNo;						   //address
 		POW_Txbuf[6] = POW_Txbuf[3] + POW_Txbuf[4] + POW_Txbuf[5]; //checksum
 		Usart_SendBytes(USART_POW, POW_Txbuf, 8);
-		POW_Frame_len = 28;
+		POW_Frame_len = 29;
 	}
 
 	uCurPowNo = (uCurPowNo + 1) % POW_NUM; //board address + 1
@@ -93,6 +95,7 @@ void POW_Task(void)
 	char *ptr;
 	short *pVal;
 	u32 tick;
+	u8 tmp = 0;
 
 	if (POW_curptr < POW_Frame_len) // 未收到完整的數據幀
 		return;
@@ -106,6 +109,13 @@ void POW_Task(void)
 
 	if (POW_buffer[4] == 0x81) //是讀取電源板參數命令
 	{
+
+		//checksum
+		for (i = 3; i < POW_Frame_len - 2; i++)
+			tmp += POW_buffer[i];
+		if (tmp != POW_buffer[POW_Frame_len - 2])
+			return;
+
 		tick = GetCurTick();
 		ptr = POW_buffer + 6;
 		pVal = &mblock1.ptrRegs[POW_SAVE_ADR + nStat * 10];
@@ -122,8 +132,15 @@ void POW_Task(void)
 
 	if (POW_buffer[4] == 0x82) //是控制电源开关指令
 	{
+		//checksum
+		for (i = 3; i < POW_Frame_len - 4; i++)
+			tmp += POW_buffer[i];
+		if (tmp != POW_buffer[POW_Frame_len - 4])
+			return;
+			
 		uPowerStatus[2 * nStat] = mblock1.ptrRegs[POW_SW_ADR + 2 * nStat];
 		uPowerStatus[2 * nStat + 1] = mblock1.ptrRegs[POW_SW_ADR + 2 * nStat + 1];
+		mblock1.ptrRegs[156]++;
 	}
 
 	POW_curptr = 0;

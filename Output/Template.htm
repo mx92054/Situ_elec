@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\..\Output\Template.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\..\Output\Template.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Mar 19 08:37:17 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Mar 19 15:33:05 2019
 <BR><P>
 <H3>Maximum Stack Usage =        356 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -766,7 +766,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
-<P><STRONG><a name="[a3]"></a>Modbus_init</STRONG> (Thumb, 106 bytes, Stack size 112 bytes, modbus_svr.o(i.Modbus_init))
+<P><STRONG><a name="[a3]"></a>Modbus_init</STRONG> (Thumb, 122 bytes, Stack size 112 bytes, modbus_svr.o(i.Modbus_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 356<LI>Call Chain = Modbus_init &rArr; ModbusSvr_block_init &rArr; malloc
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
@@ -807,15 +807,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a9]"></a>POW_Task</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, usart_com1.o(i.POW_Task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = POW_Task
+<P><STRONG><a name="[a9]"></a>POW_Task</STRONG> (Thumb, 278 bytes, Stack size 32 bytes, usart_com1.o(i.POW_Task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = POW_Task
 </UL>
 <BR>[Calls]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetCurTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[aa]"></a>POW_TxCmd</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, usart_com1.o(i.POW_TxCmd))
+<P><STRONG><a name="[aa]"></a>POW_TxCmd</STRONG> (Thumb, 210 bytes, Stack size 24 bytes, usart_com1.o(i.POW_TxCmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = POW_TxCmd &rArr; Usart_SendBytes &rArr; Usart_SendByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Usart_SendBytes
