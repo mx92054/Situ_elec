@@ -15,6 +15,13 @@
 #include "usart_com3.h"
 #include "usart_com4.h"
 
+int LmtUp = 0;		//探杆上限位
+short LmtUpStatus;	//探杆上限位的前一个状态
+int LmtDw = 0;		//探杆下限位
+short LmtDwStatus;	//探杆下限位的前一个状态
+short bRdIOFst = 0; //通讯标志
+short bRdIOFst_Last = 0; //上一次通讯标志
+
 int main(void)
 {
 	SysTick_Init(); //tick定时器初始
@@ -30,6 +37,7 @@ int main(void)
 	SetTimer(0, 500);
 	SetTimer(1, 1000);
 	SetTimer(2, 100);
+	SetTimer(3, 100);
 
 	IWDG_Configuration(); //看门狗初始
 
@@ -59,6 +67,42 @@ int main(void)
 			MOT_TxCmd();
 			ELC_TxCmd();
 			INS_TxCmd();
+		}
+
+		if ( GetTimer(3))
+		{
+			if ( bRdIOFst )
+			{
+				if ( bRdIOFst_Last == 0)
+				{
+					LmtUpStatus = mblock1.ptrRegs[97];
+					LmtDwStatus = mblock1.ptrRegs[96];
+					bRdIOFst_Last = 1;
+				}
+				if ( mblock1.ptrRegs[97] != LmtUpStatus )
+				{
+					LmtUp = !LmtUp;
+					mblock1.ptrRegs[146] = LmtUp;
+				}
+				if ( mblock1.ptrRegs[96] != LmtDwStatus)
+				{
+					LmtDw = !LmtDw;
+					mblock1.ptrRegs[145] = LmtDw;
+				}
+				LmtUpStatus = mblock1.ptrRegs[97];
+				LmtDwStatus = mblock1.ptrRegs[96];
+
+				if ( LmtUp )
+				{
+					mblock1.ptrRegs[140] = 0;
+					mblock1.ptrRegs[142] = 0;					
+				}	
+				if ( LmtDw )
+				{
+					mblock1.ptrRegs[141] = 0;
+					mblock1.ptrRegs[143] = 0;					
+				}
+			}
 		}
 	}
 }
