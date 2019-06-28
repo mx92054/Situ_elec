@@ -82,11 +82,15 @@ int main(void)
 				if ( mblock1.ptrRegs[97] != LmtUpStatus )
 				{
 					LmtUp = !LmtUp;
+					LmtDw = 0;
 					mblock1.ptrRegs[146] = LmtUp;
+					mblock1.ptrRegs[145] = LmtDw;
 				}
 				if ( mblock1.ptrRegs[96] != LmtDwStatus)
 				{
 					LmtDw = !LmtDw;
+					LmtUp = 0;
+					mblock1.ptrRegs[146] = LmtUp;
 					mblock1.ptrRegs[145] = LmtDw;
 				}
 				LmtUpStatus = mblock1.ptrRegs[97];

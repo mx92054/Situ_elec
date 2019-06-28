@@ -1883,9 +1883,9 @@ Image Symbol Table
     i._sputc                                 0x0800228a   Section        0  printf6.o(i._sputc)
     _sputc                                   0x0800228b   Thumb Code    10  printf6.o(i._sputc)
     i.main                                   0x08002294   Section        0  main.o(i.main)
-    i.malloc                                 0x080023cc   Section        0  malloc.o(i.malloc)
-    .constdata                               0x08002438   Section      512  mbsvr_comm.o(.constdata)
-    wCRCTable                                0x08002438   Data         512  mbsvr_comm.o(.constdata)
+    i.malloc                                 0x080023dc   Section        0  malloc.o(i.malloc)
+    .constdata                               0x08002448   Section      512  mbsvr_comm.o(.constdata)
+    wCRCTable                                0x08002448   Data         512  mbsvr_comm.o(.constdata)
     .data                                    0x20000000   Section       20  system_stm32f4xx.o(.data)
     .data                                    0x20000014   Section       16  stm32f4xx_rcc.o(.data)
     APBAHBPrescTable                         0x20000014   Data          16  stm32f4xx_rcc.o(.data)
@@ -2149,10 +2149,10 @@ Image Symbol Table
     __scatterload_copy                       0x08001f29   Thumb Code    14  handlers.o(i.__scatterload_copy)
     __scatterload_null                       0x08001f37   Thumb Code     2  handlers.o(i.__scatterload_null)
     __scatterload_zeroinit                   0x08001f39   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    main                                     0x08002295   Thumb Code   298  main.o(i.main)
-    malloc                                   0x080023cd   Thumb Code    92  malloc.o(i.malloc)
-    Region$$Table$$Base                      0x08002638   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08002658   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08002295   Thumb Code   316  main.o(i.main)
+    malloc                                   0x080023dd   Thumb Code    92  malloc.o(i.malloc)
+    Region$$Table$$Base                      0x08002648   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08002668   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f4xx.o(.data)
     AHBPrescTable                            0x20000004   Data          16  system_stm32f4xx.o(.data)
     bRdIOFst                                 0x20000024   Data           2  main.o(.data)
@@ -2214,9 +2214,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001ad
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002768, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002778, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00002658, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00002668, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2339,10 +2339,10 @@ Memory Map of the image
     0x08002238   0x00000024   Code   RO         5996    i._printf_post_padding  mc_w.l(printf6.o)
     0x0800225c   0x0000002e   Code   RO         5997    i._printf_pre_padding  mc_w.l(printf6.o)
     0x0800228a   0x0000000a   Code   RO         5999    i._sputc            mc_w.l(printf6.o)
-    0x08002294   0x00000138   Code   RO         5161    i.main              main.o
-    0x080023cc   0x0000006c   Code   RO         6095    i.malloc            mc_w.l(malloc.o)
-    0x08002438   0x00000200   Data   RO         5524    .constdata          mbsvr_comm.o
-    0x08002638   0x00000020   Data   RO         6168    Region$$Table       anon$$obj.o
+    0x08002294   0x00000148   Code   RO         5161    i.main              main.o
+    0x080023dc   0x0000006c   Code   RO         6095    i.malloc            mc_w.l(malloc.o)
+    0x08002448   0x00000200   Data   RO         5524    .constdata          mbsvr_comm.o
+    0x08002648   0x00000020   Data   RO         6168    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00005bc8, Max: 0x00030000, ABSOLUTE)
@@ -2382,7 +2382,7 @@ Image component sizes
 
        312         42          0          0          0       2621   bsp_innerflash.o
        136         12          0          0          0       1475   gpio.o
-       312         14          0         16          0       3456   main.o
+       328         12          0         16          0       3468   main.o
       1690         14        512          0          0      10234   mbsvr_comm.o
        124         16          0          0          0       1775   misc.o
        480        170          0          0        596       2860   modbus_svr.o
@@ -2401,7 +2401,7 @@ Image component sizes
        492         60          0         16        256       3680   usart_com4.o
 
     ----------------------------------------------------------------------
-      7684        712        972        264      23224     381830   Object Totals
+      7700        710        972        264      23224     381842   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         20          0          0          5          6          0   (incl. Padding)
 
@@ -2445,15 +2445,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      8844        754        972        272      23224     374342   Grand Totals
-      8844        754        972        272      23224     374342   ELF Image Totals
-      8844        754        972        272          0          0   ROM Totals
+      8860        752        972        272      23224     374354   Grand Totals
+      8860        752        972        272      23224     374354   ELF Image Totals
+      8860        752        972        272          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9816 (   9.59kB)
+    Total RO  Size (Code + RO Data)                 9832 (   9.60kB)
     Total RW  Size (RW Data + ZI Data)             23496 (  22.95kB)
-    Total ROM Size (Code + RO Data + RW Data)      10088 (   9.85kB)
+    Total ROM Size (Code + RO Data + RW Data)      10104 (   9.87kB)
 
 ==============================================================================
 
