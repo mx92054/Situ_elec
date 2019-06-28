@@ -5,6 +5,8 @@
 #include <stdio.h>
 
 extern Modbus_block mblock1;
+extern short bRdIOFin; //成功获取检查数据
+
 
 elcboard_para elcpara[ELC_NUM] = {
     {1, 0, 24, 80, 24, 200, 16, 0, 80},   //1#开关量输入输出板
@@ -36,7 +38,7 @@ void ELC_Init(void)
     int i;
     short *ptrW;
 
-	mblock1.ptrRegs[ELC_BAUDRATE] = 1152 ;
+		mblock1.ptrRegs[ELC_BAUDRATE] = 1152 ;
     ELC_Config(mblock1.ptrRegs[ELC_BAUDRATE] * 100);
 
     ELC_curptr = 0;
