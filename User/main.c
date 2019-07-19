@@ -19,7 +19,7 @@ int LmtUp = 0;		//探杆上限位
 short LmtUpStatus;	//探杆上限位的前一个状态
 int LmtDw = 0;		//探杆下限位
 short LmtDwStatus;	//探杆下限位的前一个状态
-short bRdIOFst = 0; //通讯标志
+short bRdIOFst = 0; //通讯标志 0-未和IO板建立通讯  1-通讯建立
 short bRdIOFst_Last = 0; //上一次通讯标志
 
 int main(void)
@@ -73,20 +73,20 @@ int main(void)
 		{
 			if ( bRdIOFst )
 			{
-				if ( bRdIOFst_Last == 0)
+				if ( bRdIOFst_Last == 0)  	//首次获取IO状态
 				{
 					LmtUpStatus = mblock1.ptrRegs[97];
 					LmtDwStatus = mblock1.ptrRegs[96];
 					bRdIOFst_Last = 1;
 				}
-				if ( mblock1.ptrRegs[97] != LmtUpStatus )
+				if ( mblock1.ptrRegs[97] != LmtUpStatus )  //上限位置状态变化
 				{
 					LmtUp = !LmtUp;
 					LmtDw = 0;
 					mblock1.ptrRegs[146] = LmtUp;
 					mblock1.ptrRegs[145] = LmtDw;
 				}
-				if ( mblock1.ptrRegs[96] != LmtDwStatus)
+				if ( mblock1.ptrRegs[96] != LmtDwStatus)	//下限位置状态变化
 				{
 					LmtDw = !LmtDw;
 					LmtUp = 0;
@@ -96,12 +96,12 @@ int main(void)
 				LmtUpStatus = mblock1.ptrRegs[97];
 				LmtDwStatus = mblock1.ptrRegs[96];
 
-				if ( LmtUp )
+				if ( LmtUp )   	//探杆到达顶端，停电机正转
 				{
 					mblock1.ptrRegs[140] = 0;
 					mblock1.ptrRegs[142] = 0;					
 				}	
-				if ( LmtDw )
+				if ( LmtDw )  	//探杆到达底端，停电机反转
 				{
 					mblock1.ptrRegs[141] = 0;
 					mblock1.ptrRegs[143] = 0;					
